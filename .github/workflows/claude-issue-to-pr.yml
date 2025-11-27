@@ -27,17 +27,3 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          
-          direct_prompt: |
-            Implement the following GitHub issue:
-            
-            Issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
-            
-            ${{ github.event.issue.body }}
-            
-            Steps:
-            1. Create a branch named feature/${{ github.event.issue.number }}-calculator
-            2. Implement the requested changes
-            3. Commit and push your changes to the new branch
-            4. Create a pull request that closes this issue
-            5. Include "Closes #${{ github.event.issue.number }}" in the PR description
