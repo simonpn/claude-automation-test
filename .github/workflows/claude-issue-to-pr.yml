@@ -10,11 +10,11 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+  id-token: write
 
 jobs:
   implement:
     runs-on: ubuntu-latest
-    # Triggers on "claude" label OR @claude mention in comments
     if: |
       (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'claude')) ||
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude'))
@@ -28,7 +28,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           
-          prompt: |
+          direct_prompt: |
             Implement the following GitHub issue:
             
             Issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
@@ -36,18 +36,8 @@ jobs:
             ${{ github.event.issue.body }}
             
             Steps:
-            1. Create a branch named feature/${{ github.event.issue.number }}-<short-description>
+            1. Create a branch named feature/${{ github.event.issue.number }}-calculator
             2. Implement the requested changes
-            3. Create a pull request that closes this issue
-            4. Include "Closes #${{ github.event.issue.number }}" in the PR description
-
-          allowed_tools: |
-            Bash(git:*),
-            View,
-            Edit,
-            Write,
-            mcp__github__create_branch,
-            mcp__github__create_pull_request,
-            mcp__github__push_files
-          
-          max_turns: 15
+            3. Commit and push your changes to the new branch
+            4. Create a pull request that closes this issue
+            5. Include "Closes #${{ github.event.issue.number }}" in the PR description
