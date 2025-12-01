@@ -1,14 +1,25 @@
 {
-  "name": "claude-automation-test",
+  "name": "snowlion-doc-to-bom",
   "version": "1.0.0",
-  "description": "Test repo for Claude Code GitHub Actions automation",
+  "description": "Snowlion - Document to BOM converter for Norwegian sub-contractors",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "db:init": "node src/db/init.js",
     "build": "echo 'No build step required'",
     "test": "echo 'No tests yet' && exit 0"
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^9.4.3",
+    "uuid": "^9.0.1",
+    "multer": "^1.4.5-lts.1",
+    "express-rate-limit": "^7.1.5",
+    "dotenv": "^16.4.1",
+    "nodemailer": "^6.9.8"
   }
 }
